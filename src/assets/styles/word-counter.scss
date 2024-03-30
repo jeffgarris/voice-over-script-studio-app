@@ -1,0 +1,48 @@
+.word-counter {
+  display: flex;
+  width: 100%;
+
+  div.info-controls {
+    margin-left: 10px;
+    // background-color: $white;
+    // border: 1px solid #ccc;
+    // border-left: 0;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem;
+    text-align: left;
+    background-color: $white;
+    border-radius: 5px;
+    // border-bottom: 1px solid #ccc;
+
+    &:not(:first-child) {
+      margin-top: .5rem;
+    }
+
+    span {
+      margin-left: 1rem;
+      padding: .3rem;
+      width: 110px;
+      border-radius: 15px;
+      background-color: $primary-color;
+      color: $white;
+      text-align: center;
+    }
+  }
+
+  #count-display {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    text-align: center;
+    color: #555;
+  }
+}
