@@ -1,5 +1,5 @@
 <template>
-  <div class="modal" v-if="show" v-click-outside="handleCancel">
+  <div class="modal" v-if="show" @click.self="handleCancel">
     <!-- <div class="modal-overlay" @click="close"></div> -->
     <div class="modal-container">
       <div class="modal-content">
@@ -15,24 +15,8 @@
 </template>
 
 <script>
-import Vue from "vue";
-
-Vue.directive("click-outside", {
-  bind(el, binding, vnode) {
-    el.clickOutsideEvent = (event) => {
-      if (!(el === event.target || el.contains(event.target))) {
-        vnode.context[binding.expression](event);
-      }
-    };
-    document.body.addEventListener("click", el.clickOutsideEvent);
-  },
-  unbind(el) {
-    document.body.removeEventListener("click", el.clickOutsideEvent);
-  },
-});
-
 export default {
-  name: "MOdalComponent",
+  name: "ModalComponent",
   props: ["show", "title", "message"],
   methods: {
     confirm() {
