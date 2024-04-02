@@ -87,7 +87,6 @@
 <script>
 import ToggleCheckboxVue from "@/components/ToggleCheckbox.vue";
 import ModalComponentVue from "@/components/ModalComponent.vue";
-import { ref } from "vue";
 
 export default {
   name: "WordCounter",
@@ -129,6 +128,7 @@ export default {
         const reader = new FileReader();
         reader.onload = (e) => {
           this.inputText = e.target.result;
+          this.handleFormTasks();
           this.handleSaveScript();
         };
         reader.readAsText(file);
@@ -178,14 +178,13 @@ export default {
     },
     handleFormTasks() {
       let wordCount = 0;
-      let sentenceCount = 0;
-      let paragraphCount = 0;
-      let lineCount = 0;
+      // let sentenceCount = 0;
+      // let paragraphCount = 0;
+      // let lineCount = 0;
       let words = this.inputText.split(/\s+/);
       let sentences = this.inputText.match(/[\w|)][.!?](\s|$)/g);
       let paragraphs = this.inputText.split(/\n\n+/);
       let lines = this.inputText.split("\n");
-
       // Count words
       for (let i = 0; i < words.length; i++) {
         let word = words[i];
