@@ -22,15 +22,28 @@
 
   //Nav Menu Dropdown togle
   .dropdown-toggle {
-    background-color: $primary-color;
-    color: white;
+    background-color: $white;
+    color: $primary-color;
     padding: 16px;
+    padding-right: 31px;
     font-size: 0.8rem;
     border: none;
     cursor: pointer;
+    transition: all .3s;
+
+    &:after {
+      content: '▼';
+      position: absolute;
+      right: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    &.open:after {
+      transform: rotate(180deg);
+    }
 
     &:hover {
-      background-color: $white;
+      background-color: darken($white, 8%);
       color: $primary-color;
     }
   }
