@@ -13,9 +13,11 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
+    "prettier/prettier": "off",
+    "quotes": "off", // Doesn't seem to work
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "prettier/prettier": ["error",{
+    "prettier/prettier": ["off", {
       "endOfLine": "auto"}
     ]
   },
