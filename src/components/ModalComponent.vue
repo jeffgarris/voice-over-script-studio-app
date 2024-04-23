@@ -1,6 +1,5 @@
 <template>
   <div class="modal" v-if="show" @click.self="handleCancel">
-    <!-- <div class="modal-overlay" @click="close"></div> -->
     <div class="modal-container">
       <div class="modal-content">
         <h4 class="modal-header">{{ title }}</h4>
@@ -23,7 +22,6 @@ export default {
       this.$emit("confirm");
     },
     handleCancel() {
-      console.log("clicked outside");
       this.$emit("closeModal");
     },
   },
