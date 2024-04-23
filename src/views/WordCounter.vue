@@ -2,9 +2,8 @@
   <h1>{{ title }}</h1>
   <div class="word-counter">
     <textarea
-      @keyup="handleFormTasks"
       id="input"
-      placeholder="Type your text here"
+      placeholder="Type your text here or upload file below"
       v-model="inputText"
     ></textarea>
     <div class="info-controls">
@@ -44,7 +43,6 @@
         id="save-script"
         ref="saveScriptToggle"
         label="Save Script"
-        :defaultChecked="true"
         @change="handleCheckboxChange"
       />
     </div>
@@ -60,7 +58,7 @@
     <button @click="copyScriptText()" class="primary align-left">
       Copy Script
     </button>
-    <button @click="handleClearScript()" class="delete align-left">
+    <button @click="handleClearScriptConfirmModal()" class="delete align-left">
       Clear Script
     </button>
   </div>
@@ -79,12 +77,13 @@
     :show="showModal"
     title="Confirmation"
     message="Are you sure you want to delete this text?"
-    @confirm="handleConfirm"
+    @confirm="handleClearScriptConfirmed"
     @closeModal="handleCloseModal"
   ></ModalComponent>
 </template>
 
 <script>
+import watch from "vue";
 import ToggleCheckboxVue from "@/components/ToggleCheckbox.vue";
 import ModalComponentVue from "@/components/ModalComponent.vue";
 
@@ -98,7 +97,7 @@ export default {
     return {
       title: "Voice Over Script Word Counter",
       buttonText: "Count Words and Character",
-      inputText: localStorage.getItem("wordCounterText") || "", // Get local storage, apply to textarea
+      inputText: localStorage.getItem("wordCounterText") || "", // Get local storage and apply to textarea or leave blank
       totalCharCount: 0,
       totalCharCountWithoutSpaces: 0,
       totalWordCount: 0,
@@ -110,13 +109,22 @@ export default {
       minutes: 0,
       seconds: 0,
       counted: false,
-      saveScriptToggleChecked: this.defaultChecked,
+      saveScriptToggleChecked: true,
       showModal: false,
       // items: [
       //   { text: "Word Count", count: this.totalWordCount },
       //   { text: "Character Count", count: this.totalCharCount },
       // ],
     };
+  },
+  watch: {
+    inputText: {
+      handler() {
+        this.handleFormTasks();
+        this.handleSaveScript();
+      },
+      immediate: true,
+    },
   },
   methods: {
     triggerFileInput() {
@@ -128,23 +136,20 @@ export default {
         const reader = new FileReader();
         reader.onload = (e) => {
           this.inputText = e.target.result;
-          this.handleFormTasks();
-          this.handleSaveScript();
         };
         reader.readAsText(file);
       }
     },
-    handleConfirm() {
+    handleClearScriptConfirmed() {
       this.showModal = false;
-      // Proceed with the action
-      this.clearScript();
+      this.inputText = "";
     },
     handleCloseModal() {
       this.showModal = false;
     },
     handleCheckboxChange() {
       this.saveScriptToggleChecked = this.$refs.saveScriptToggle.checked;
-      // Add "Are you sure?" prompt when unchecking
+      // TODO: Add "Are you sure?" prompt when unchecking
       this.handleSaveScript();
     },
     handleSaveScript() {
@@ -154,12 +159,8 @@ export default {
         localStorage.setItem("wordCounterText", "");
       }
     },
-    handleClearScript() {
+    handleClearScriptConfirmModal() {
       this.showModal = true;
-    },
-    clearScript() {
-      this.inputText = "";
-      this.handleSaveScript();
     },
     copyScriptText() {
       navigator.clipboard.writeText(this.inputText).then(
@@ -177,6 +178,7 @@ export default {
       this.$root.showMessageBar(message, status);
     },
     handleFormTasks() {
+      console.log("Form!");
       let wordCount = 0;
       // let sentenceCount = 0;
       // let paragraphCount = 0;
@@ -194,9 +196,7 @@ export default {
       }
 
       // Count sentences
-      if (sentences) {
-        this.totalSentenceCount = sentences.length;
-      }
+      this.totalSentenceCount = sentences ? sentences.length : 0;
 
       // Count paragraphs
       if (paragraphs) {
@@ -240,8 +240,6 @@ export default {
       // const textarea = document.getElementById("input");
       // const newHeight = textarea.scrollHeight;
       // document.getElementById("input").style.height = newHeight + "px";
-
-      this.handleSaveScript();
     },
     addLeadingZero(num) {
       let number = num < 10 ? "0" + num : num;
@@ -255,9 +253,6 @@ export default {
   },
   mounted() {
     this.handleCheckboxChange();
-    if (this.inputText) {
-      this.handleFormTasks();
-    }
   },
 };
 </script>
