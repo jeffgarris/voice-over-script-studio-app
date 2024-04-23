@@ -184,7 +184,7 @@ export default {
       // let paragraphCount = 0;
       // let lineCount = 0;
       let words = this.inputText.split(/\s+/);
-      let sentences = this.inputText.match(/[\w|)][.!?](\s|$)/g);
+      let sentences = this.inputText.match(/[A-Z0-9].*?(?:[.!?]|\n)/gi);
       let paragraphs = this.inputText.split(/\n\n+/);
       let lines = this.inputText.split("\n");
       // Count words
