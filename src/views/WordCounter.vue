@@ -46,16 +46,6 @@
     </button>
   </div>
 
-  <br />
-  <br />
-  <p>
-    Does your voiceover script formatting need a little help?<br />
-    <span class="headroom-mini"
-      >Try the <a href="">Voice Over Script Formatter</a></span
-    >
-  </p>
-  <!-- <p class="side-note">(Don't worry, your script will come with you)</p> -->
-
   <ModalComponent
     :show="showModal"
     title="Confirmation"
