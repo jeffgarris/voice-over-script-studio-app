@@ -11,7 +11,7 @@
         <CountBox
           v-for="(countType, index) in countTypes"
           :text="countType.text"
-          :count="countType.count"
+          :count="Number(countType.count)"
           :key="index"
         />        
       </ul>

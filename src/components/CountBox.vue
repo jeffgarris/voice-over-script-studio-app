@@ -8,10 +8,6 @@
 
 export default {
   props: {
-    // id: {
-    //   type: String,
-    //   required: true,
-    // },
     text: {
       type: String,
     },
