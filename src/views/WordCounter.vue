@@ -8,35 +8,12 @@
     ></textarea>
     <div class="info-controls">
       <ul>
-        <li>
-          Characters: <span>{{ totalCharCount }}</span>
-        </li>
-        <li>
-          Characters (no spaces):
-          <span>{{ totalCharCountWithoutSpaces }}</span>
-        </li>
-        <li>
-          Words: <span>{{ totalWordCount }}</span>
-        </li>
-        <li>
-          Sentences:
-          <span>{{ totalSentenceCount }}</span>
-        </li>
-        <li>
-          Paragraphs:
-          <span>{{ totalParagraphCount }}</span>
-        </li>
-        <li>
-          Lines:
-          <span>{{ totalLineCount }}</span>
-        </li>
-        <li>
-          Reading Time: <span>{{ hours }}:{{ minutes }}:{{ seconds }}</span>
-        </li>
-        <!-- <li v-for="item in items" v-bind:key="item">
-            {{ item.text }}
-            <span>{{ item.count }}</span>
-          </li> -->
+        <CountBox
+          v-for="(countType, index) in countTypes"
+          :text="countType.text"
+          :count="countType.count"
+          :key="index"
+        />        
       </ul>
       <div class="toggle-container">
         <ToggleCheckbox
@@ -90,12 +67,14 @@
 
 <script>
 import watch from "vue";
+import CountBoxVue from "@/components/CountBox.vue";
 import ToggleCheckboxVue from "@/components/ToggleCheckbox.vue";
 import ModalComponentVue from "@/components/ModalComponent.vue";
 
 export default {
   name: "WordCounter",
   components: {
+    CountBox: CountBoxVue,
     ToggleCheckbox: ToggleCheckboxVue,
     ModalComponent: ModalComponentVue,
   },
@@ -122,6 +101,19 @@ export default {
         "yet-another-toggle": false,
       },
     };
+  },
+  computed: {
+    countTypes() {
+      return [
+        { text: "Character Count", count: this.totalCharCount },
+        { text: "Characters (no spaces)", count: this.totalCharCountWithoutSpaces },
+        { text: "Words", count: this.totalWordCount },
+        { text: "Sentences", count: this.totalSentenceCount },
+        { text: "Paragraphs", count: this.totalParagraphCount },
+        { text: "Lines", count: this.totalLineCount },
+        { text: "Reading Time", count: this.totalReadingTime },
+      ];
+    }
   },
   watch: {
     inputText() {
