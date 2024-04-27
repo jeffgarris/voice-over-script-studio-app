@@ -38,13 +38,19 @@
             <span>{{ item.count }}</span>
           </li> -->
       </ul>
-
-      <ToggleCheckbox
-        id="save-script"
-        ref="saveScriptToggle"
-        label="Save Script"
-        @change="handleCheckboxChange"
-      />
+      <div class="toggle-container">
+        <ToggleCheckbox
+          id="save-script"
+          label="Save Script"
+          default="true"
+          @toggleStateChanged="handleSaveScript"
+        />
+        <ToggleCheckbox
+          id="default-off-toggle"
+          label="Default Off Toggle"
+          default="false"
+        />
+      </div>
     </div>
   </div>
   <div class="button-group horizontal">
@@ -109,21 +115,18 @@ export default {
       minutes: 0,
       seconds: 0,
       counted: false,
-      saveScriptToggleChecked: true,
       showModal: false,
-      // items: [
-      //   { text: "Word Count", count: this.totalWordCount },
-      //   { text: "Character Count", count: this.totalCharCount },
-      // ],
+      toggles: {
+        "save-script": false,
+        "still-toggling": false,
+        "yet-another-toggle": false,
+      },
     };
   },
   watch: {
-    inputText: {
-      handler() {
-        this.handleFormTasks();
-        this.handleSaveScript();
-      },
-      immediate: true,
+    inputText() {
+      this.handleFormTasks();
+      this.handleSaveScript();
     },
   },
   methods: {
@@ -147,13 +150,11 @@ export default {
     handleCloseModal() {
       this.showModal = false;
     },
-    handleCheckboxChange() {
-      this.saveScriptToggleChecked = this.$refs.saveScriptToggle.checked;
-      // TODO: Add "Are you sure?" prompt when unchecking
-      this.handleSaveScript();
-    },
-    handleSaveScript() {
-      if (this.saveScriptToggleChecked) {
+    handleSaveScript(data) {
+      if (data) {
+        this.toggles[data.id] = data.checked;
+      }
+      if (this.toggles['save-script']) {
         localStorage.setItem("wordCounterText", this.inputText);
       } else {
         localStorage.setItem("wordCounterText", "");
@@ -178,11 +179,7 @@ export default {
       this.$root.showMessageBar(message, status);
     },
     handleFormTasks() {
-      console.log("Form!");
       let wordCount = 0;
-      // let sentenceCount = 0;
-      // let paragraphCount = 0;
-      // let lineCount = 0;
       let words = this.inputText.split(/\s+/);
       let sentences = this.inputText.match(/[A-Z0-9].*?(?:[.!?]|\n)/gi);
       let paragraphs = this.inputText.split(/\n\n+/);
@@ -252,7 +249,7 @@ export default {
     },
   },
   mounted() {
-    this.handleCheckboxChange();
+    this.handleFormTasks();
   },
 };
 </script>

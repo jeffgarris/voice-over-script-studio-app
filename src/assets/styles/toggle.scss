@@ -1,52 +1,11 @@
-// .toggle-checkbox {
-//   display: inline-block;
-//   position: relative;
-//   padding: 1rem 1rem;
-
-//   span {
-//     margin-right: 1rem;
-//   }
-// }
-
-// input[type="checkbox"] {
-//   display: none;
-// }
-
-// .toggle-label {
-//   width: 40px;
-//   height: 22px;
-//   border-radius: 15px;
-//   background-color: #ccc;
-//   position: relative;
-//   display: inline-block;
-//   cursor: pointer;
-//   transition: background-color 0.3s ease;
-// }
-
-// .toggle-label::before {
-//   content: "";
-//   width: 17px;
-//   height: 17px;
-//   background-color: white;
-//   border-radius: 50%;
-//   position: absolute;
-//   left: 4px;
-//   top: 2px;
-//   transition: transform 0.3s ease;
-// }
-
-// input[type="checkbox"]:checked + .toggle-label {
-//   background-color: #4caf50;
-// }
-
-// input[type="checkbox"]:checked + .toggle-label::before {
-//   transform: translateX(26px);
-// }
-
 .toggle-checkbox {
   display: inline-block;
   position: relative;
-  padding: 1rem 1rem;
+  padding: .5rem 1rem;
+
+  &:first-child {
+    padding-top: 1rem;
+  }
 
   span {
     margin-right: 1rem;

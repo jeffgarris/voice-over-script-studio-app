@@ -15,35 +15,33 @@ export default {
       type: String,
       required: true,
     },
-    defaultChecked: {
-      type: Boolean,
-      required: true,
-    },
     label: {
       type: String,
+    },
+    default: {
+      type: String,
+      required: true,
     },
   },
   data() {
     return {
-      checked: this.defaultChecked,
+      checked: this.default,
     };
-  },
-  watch: {
-    value(newVal) {
-      this.checked = newVal;
-    },
   },
   methods: {
     onChange() {
       Cookies.set(this.id, this.checked);
-      // this.$emit("change", { id: this.id, checked: this.checked });
+      this.$emit('toggleStateChanged', { id: this.id, checked: this.checked });
     },
   },
   mounted() {
+    // Check for a cookie for each toggle on the page
     const cookieValue = Cookies.get(this.id);
+    // If a cookie if found, update data with cookie value
     if (cookieValue !== undefined) {
-      this.checked = cookieValue === "true";
+      this.checked = cookieValue === 'true';
     }
+    this.onChange(); // Not sure if this is a good practice
   },
 };
 </script>
