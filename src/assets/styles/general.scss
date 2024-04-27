@@ -142,7 +142,13 @@ button {
   border: 1px solid $primary-color;
   border-radius: $border-radius;
   cursor: pointer;
-  transition: $button-animation-speed;
+  transition-property: background-color, color;
+  transition-duration: $button-animation-speed;
+
+  @media screen and (max-width: 767px) {
+    margin-left: .5rem;
+    padding: 1rem;
+  }
 
   &.primary {
     background-color: $primary-color;
