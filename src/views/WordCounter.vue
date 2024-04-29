@@ -38,7 +38,7 @@
       @change="handleFileUpload"
       style="display: none"
     />
-    <button @click="copyScriptText()" class="primary align-left">
+    <button @click="handleCopyScriptText()" class="primary align-left">
       Copy Script
     </button>
     <button @click="handleClearScriptConfirmModal()" class="delete align-left">
@@ -145,11 +145,11 @@ export default {
     handleClearScriptConfirmModal() {
       this.showModal = true;
     },
-    copyScriptText() {
+    handleCopyScriptText() {
       navigator.clipboard.writeText(this.inputText).then(
         () => {
           // clipboard successfully set
-          this.showMessage("Copied!", "success");
+          this.showMessageBar("Copied!", "success");
         },
         (error) => {
           /* clipboard write failed */
@@ -157,7 +157,7 @@ export default {
         }
       );
     },
-    showMessage(message, status) {
+    showMessageBar(message, status) {
       this.$root.showMessageBar(message, status);
     },
     handleFormTasks() {
