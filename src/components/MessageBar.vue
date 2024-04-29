@@ -23,7 +23,7 @@ export default {
       this.status = status;
       this.showBar = true;
 
-      if (status === "success") {
+      if (this.status == "success") {
         setTimeout(() => {
           this.hideMessageBar();
         }, duration);
