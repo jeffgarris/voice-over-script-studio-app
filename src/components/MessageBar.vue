@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showBar" class="message-bar" :class="[status]">
+  <div v-if="isVisible" class="message-bar" :class="[status]">
     <span class="message">{{ message }}</span>
     <button v-show="clickToClose" @click="hideMessageBar()" class="close">
       x
@@ -11,7 +11,7 @@
 export default {
   data() {
     return {
-      showBar: false,
+      isVisible: false,
       message: "",
       status: null,
       clickToClose: false,
@@ -21,9 +21,9 @@ export default {
     showMessageBar(message, status, duration = 3000) {
       this.message = message;
       this.status = status;
-      this.showBar = true;
+      this.isVisible = true;
 
-      if (this.status == "success") {
+      if (this.status === "success") {
         setTimeout(() => {
           this.hideMessageBar();
         }, duration);
@@ -32,7 +32,7 @@ export default {
       }
     },
     hideMessageBar() {
-      this.showBar = false;
+      this.isVisible = false;
     },
   },
 };

@@ -13,7 +13,7 @@
           :text="countType.text"
           :count="Number(countType.count)"
           :key="index"
-        />        
+        />
       </ul>
       <div class="toggle-container">
         <ToggleCheckbox
@@ -21,11 +21,6 @@
           label="Save Script"
           default="true"
           @toggleStateChanged="handleSaveScript"
-        />
-        <ToggleCheckbox
-          id="default-off-toggle"
-          label="Default Off Toggle"
-          default="false"
         />
       </div>
     </div>
@@ -96,14 +91,17 @@ export default {
     countTypes() {
       return [
         { text: "Character Count", count: this.totalCharCount },
-        { text: "Characters (no spaces)", count: this.totalCharCountWithoutSpaces },
+        {
+          text: "Characters (no spaces)",
+          count: this.totalCharCountWithoutSpaces,
+        },
         { text: "Words", count: this.totalWordCount },
         { text: "Sentences", count: this.totalSentenceCount },
         { text: "Paragraphs", count: this.totalParagraphCount },
         { text: "Lines", count: this.totalLineCount },
         { text: "Reading Time", count: this.totalReadingTime },
       ];
-    }
+    },
   },
   watch: {
     inputText() {
@@ -136,7 +134,7 @@ export default {
       if (data) {
         this.toggles[data.id] = data.checked;
       }
-      if (this.toggles['save-script']) {
+      if (this.toggles["save-script"]) {
         localStorage.setItem("wordCounterText", this.inputText);
       } else {
         localStorage.setItem("wordCounterText", "");
@@ -148,17 +146,15 @@ export default {
     handleCopyScriptText() {
       navigator.clipboard.writeText(this.inputText).then(
         () => {
-          // clipboard successfully set
-          this.showMessageBar("Copied!", "success");
+          this.$root.showMessageBar("Copied!", "success");
         },
         (error) => {
-          /* clipboard write failed */
-          console.log("error = ", error);
+          console.error("Clipboard error: ", error);
         }
       );
     },
-    showMessageBar(message, status) {
-      this.$root.showMessageBar(message, status);
+    handleShowMessageBar(message, status) {
+      this.$root.showMessageBar("Copied!", "success");
     },
     handleFormTasks() {
       let wordCount = 0;

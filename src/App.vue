@@ -29,15 +29,6 @@ export default {
     FooterComponent: FooterComponentVue,
     MessageBar: MessageBarVue,
   },
-  data() {
-    return {
-      // items: [
-      //   { text: "Word Counter", url: "/voice-over-script-word-counter" },
-      //   { text: "Script Generator", url: "/voice-over-script-generator" },
-      //   { text: "About", url: "/about" },
-      // ],
-    };
-  },
   methods: {
     showMessageBar(message, status) {
       this.$refs.messageBar.showMessageBar(message, status);

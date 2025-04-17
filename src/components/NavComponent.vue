@@ -2,8 +2,8 @@
   <div class="nav">
     <div class="nav-content">
       <div class="site-title">Voice Over Script Studio</div>
-      <div class="nav-dropdown-container" ref="dropdownContainer">
-        <button @click="toggleDropdown" class="dropdown-toggle">
+      <!-- <div class="nav-dropdown-container" ref="dropdownContainer">
+        <button @click="toggleDropdown" class="dropdown-toggle open">
           Voice Over Script Tools
         </button>
         <ul v-if="isDropdownOpen" class="nav-dropdown">
@@ -13,7 +13,7 @@
             }}</router-link>
           </li>
         </ul>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -35,9 +35,9 @@ export default {
   mounted() {
     document.addEventListener("click", this.handleClickOutside);
   },
-  beforeUnmount() {
-    document.removeEventListener("click", this.handleClickOutside);
-  },
+  // beforeUnmount() {
+  //   document.removeEventListener("click", this.handleClickOutside);
+  // },
   methods: {
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
@@ -45,15 +45,15 @@ export default {
     makeSelection() {
       this.isDropdownOpen = false;
     },
-    handleClickOutside(event) {
-      // Check if the click is outside the dropdown container
-      if (
-        !this.$refs.dropdownContainer.contains(event.target) &&
-        this.isDropdownOpen
-      ) {
-        this.isDropdownOpen = false;
-      }
-    },
+    // handleClickOutside(event) {
+    //   // Check if the click is outside the dropdown container
+    //   if (
+    //     !this.$refs.dropdownContainer.contains(event.target) &&
+    //     this.isDropdownOpen
+    //   ) {
+    //     this.isDropdownOpen = false;
+    //   }
+    // },
   },
 };
 </script>

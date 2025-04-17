@@ -20,6 +20,8 @@ $footer-height: 80px;
   }
 
   .site-credit {
+    display: flex;
+    justify-content: space-between;
     flex-grow: 2;
     font-size: 0.8rem;
     text-align: left;

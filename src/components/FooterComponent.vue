@@ -11,14 +11,9 @@
         </p>
       </div>
       <ul>
-        <li>
+        <!-- <li>
           <router-link class="router-link" to="/">Placeholder</router-link>
-        </li>
-        <li>
-          <router-link class="router-link" to="/voice-over-script-generator"
-            >Placeholder</router-link
-          >
-        </li>
+        </li> -->
         <!-- <li v-for="item in items" :key="item">
           <a v-bind:href="item.url">{{ item.text }}</a>
         </li> -->
