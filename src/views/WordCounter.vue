@@ -11,7 +11,7 @@
         <CountBox
           v-for="(countType, index) in countTypes"
           :text="countType.text"
-          :count="Number(countType.count)"
+          :count="countType.count"
           :key="index"
         />
       </ul>
@@ -150,7 +150,7 @@ export default {
         },
         (error) => {
           console.error("Clipboard error: ", error);
-        }
+        },
       );
     },
     handleShowMessageBar(message, status) {
@@ -176,19 +176,19 @@ export default {
       // Count paragraphs
       if (paragraphs) {
         this.totalParagraphCount = paragraphs.filter((paragraph) =>
-          paragraph.match(/[0-9a-zA-Z]/)
+          paragraph.match(/[0-9a-zA-Z]/),
         ).length;
       }
 
       // Count lines with at least one valid character
       this.totalLineCount = lines.filter((line) =>
-        line.match(/[0-9a-zA-Z]/)
+        line.match(/[0-9a-zA-Z]/),
       ).length;
 
       // Count the number of characters in the text
       this.totalCharCount = this.numberize(this.inputText.length);
       this.totalCharCountWithoutSpaces = this.numberize(
-        this.inputText.replace(/\s/g, "").length
+        this.inputText.replace(/\s/g, "").length,
       );
       this.totalWordCount = this.numberize(wordCount);
 
@@ -208,6 +208,7 @@ export default {
       this.hours = this.addLeadingZero(hours);
       this.minutes = this.addLeadingZero(minutes);
       this.seconds = this.addLeadingZero(seconds);
+      this.totalReadingTime = `${this.hours}:${this.minutes}:${this.seconds}`;
       this.counted = true;
 
       // NOTE: This works to make it taller, but not shorter.
